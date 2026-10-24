@@ -1,0 +1,5 @@
+project_id = "terac-hackathon"
+
+# Whop calls this directly with no Supabase JWT; it authenticates via the Whop signature instead.
+[functions.whop-webhook]
+verify_jwt = false
