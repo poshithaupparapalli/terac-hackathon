@@ -6,7 +6,8 @@ Supabase (Postgres + Edge Functions) + Whop. Lovable connects to the same Supaba
 
 | | |
 |---|---|
-| Supabase project | `lcsjutaaxzntwxfgvhjj` → `https://lcsjutaaxzntwxfgvhjj.supabase.co` (anon key: dashboard → Project Settings → API) |
+| Supabase project | `lcsjutaaxzntwxfgvhjj` → `https://lcsjutaaxzntwxfgvhjj.supabase.co` |
+| Keys | Frontend: the **`terac` publishable key** (`sb_publishable_…`). Backend/agents: the **`terac` secret key** (`sb_secret_…`, never in browser code). Both are under Project Settings → API Keys. Legacy `eyJ…` keys are being retired, so don't use them. |
 | Functions | `quote`, `create-checkout`, `verify-payment`, `vera-webhook` (all deployed) |
 | Whop (LIVE, real money) | product `prod_GcqIbs2eO7Zpu`: Starter `plan_lrynah65qG2MQ` $35, Standard `plan_nN6qQxUXLOO6i` $95, Pro `plan_VKmRditVebIwg` $190 |
 | Tested | create study → `create-checkout` → real Whop checkout carrying the study id; webhook signature verified with Whop test events |

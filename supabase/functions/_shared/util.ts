@@ -20,8 +20,10 @@ export function env(name: string): string {
 }
 
 // Service-role client: bypasses RLS. Only ever used server-side.
+// VERA_SECRET_KEY is a new-style sb_secret_ key (survives disabling the legacy JWT keys).
 export function adminDb() {
-  return createClient(env("SUPABASE_URL"), env("SUPABASE_SERVICE_ROLE_KEY"), {
+  const key = Deno.env.get("VERA_SECRET_KEY") ?? env("SUPABASE_SERVICE_ROLE_KEY");
+  return createClient(env("SUPABASE_URL"), key, {
     auth: { persistSession: false },
   });
 }
