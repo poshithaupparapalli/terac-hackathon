@@ -2,6 +2,23 @@
 
 Supabase (Postgres + Edge Functions) + Whop. Lovable connects to the same Supabase project.
 
+## ✅ Live now (start here)
+
+| | |
+|---|---|
+| Supabase project | `lcsjutaaxzntwxfgvhjj` → `https://lcsjutaaxzntwxfgvhjj.supabase.co` (anon key: dashboard → Project Settings → API) |
+| Functions | `quote`, `create-checkout`, `verify-payment`, `vera-webhook` (all deployed) |
+| Whop (LIVE, real money) | product `prod_GcqIbs2eO7Zpu`: Starter `plan_lrynah65qG2MQ` $35, Standard `plan_nN6qQxUXLOO6i` $95, Pro `plan_VKmRditVebIwg` $190 |
+| Tested | create study → `create-checkout` → real Whop checkout carrying the study id; webhook signature verified with Whop test events |
+| Not yet tested | a real payment flipping `paid:true`. That happens with the first real customer. |
+
+**Still needed from teammates:**
+- Person 4: founder-page URL, which becomes `CHECKOUT_REDIRECT_URL`. Until it's set, Whop shows its own confirmation page.
+- Person 2: planner URL, which becomes `AGENT_TRIGGER_URL`. Or poll for `status='paid'`.
+- Person 3: call `record_terac_cost` once Terac shows the real cost. The $4/tester figure is a guess.
+
+The setup checklist further down is already done. It's kept for reference.
+
 ```
 Intake form ──insert──▶ studies (status=draft)
      │
