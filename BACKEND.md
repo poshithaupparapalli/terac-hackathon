@@ -7,7 +7,7 @@ Intake form ──insert──▶ studies (status=draft)
      │
      └─POST create-checkout {study_id, tier} ──▶ Whop checkout (tier's fixed plan, metadata.study_id)
                                                    │ founder pays
-Whop ──payment.succeeded──▶ whop-webhook ──verify signature──▶ GET payment from Whop (must be "paid")
+Whop ──payment.succeeded──▶ vera-webhook ──verify signature──▶ GET payment from Whop (must be "paid")
                                 │
                                 └─▶ studies.payment = {paid:true, our_fee 20%, study_budget 80%}, status=paid
                                     └─▶ POST AGENT_TRIGGER_URL {study_id}   (Person 2 plans → Person 3 posts to Terac)
@@ -68,7 +68,7 @@ The frontend **cannot update** studies (RLS). That is deliberate, so nobody can 
 4. Create the business, then one product ("AI User Research Study") with 3 one-time plans: $35 / $95 / $190. Copy each `plan_…` id.
 5. Developer → Account API Keys → create a key (Admin role).
 6. Deploy the functions (below). Then Developer → Webhooks → Create webhook:
-   URL `https://<project-ref>.supabase.co/functions/v1/whop-webhook`, API version `v1`, event `payment.succeeded`. Copy the `ws_…` secret.
+   URL `https://<project-ref>.supabase.co/functions/v1/vera-webhook`, API version `v1`, event `payment.succeeded`. Copy the `ws_…` secret.
 7. Fill in `supabase/.env` from [.env.example](supabase/.env.example), then `supabase secrets set --env-file supabase/.env`.
 8. Test the whole flow with the test card, and check `whop_events.outcome = 'marked_paid'`.
 9. **Go live:** repeat steps 4–6 on whop.com, update the secrets, and remove `WHOP_API_BASE`.
@@ -78,7 +78,7 @@ The frontend **cannot update** studies (RLS). That is deliberate, so nobody can 
 brew install supabase/tap/supabase deno
 supabase login && supabase link --project-ref <ref>
 supabase functions deploy quote create-checkout verify-payment
-supabase functions deploy whop-webhook --no-verify-jwt
+supabase functions deploy vera-webhook --no-verify-jwt
 ```
 
 ## Debugging

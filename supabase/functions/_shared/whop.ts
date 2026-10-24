@@ -58,7 +58,7 @@ export async function verifyWebhook(req: Request, rawBody: string): Promise<bool
   const secret = env("WHOP_WEBHOOK_SECRET");
   const stripped = secret.replace(/^(ws_|whsec_)/, "");
   const enc = new TextEncoder();
-  const keys: Uint8Array[] = [enc.encode(secret), enc.encode(stripped)];
+  const keys: Uint8Array<ArrayBuffer>[] = [enc.encode(secret), enc.encode(stripped)];
   try {
     keys.push(Uint8Array.from(atob(stripped), (c) => c.charCodeAt(0)));
   } catch { /* not base64 */ }

@@ -9,7 +9,7 @@ Deno.serve(async (req) => {
 
   const raw = await req.text();
   if (!(await verifyWebhook(req, raw))) {
-    console.warn("[whop-webhook] bad signature");
+    console.warn("[vera-webhook] bad signature");
     return json({ error: "invalid signature" }, 401);
   }
 
@@ -45,7 +45,7 @@ Deno.serve(async (req) => {
       { payment_id: payment.id, study_id: studyId });
     return json({ ok: true, study_id: studyId, result: result.ok ? "paid" : result.reason });
   } catch (e) {
-    console.error("[whop-webhook]", e);
+    console.error("[vera-webhook]", e);
     await log(`error: ${e}`);
     return json({ error: String(e) }, 500); // non-2xx → Whop retries
   }
