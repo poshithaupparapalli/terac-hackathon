@@ -5,3 +5,9 @@ vendor/
 .tmp/
 .terac_config.json
 *.log
+supabase/.env
+supabase/.temp/
+supabase/.branches/
+node_modules/
+.DS_Store
+.vercel
