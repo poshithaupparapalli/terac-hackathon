@@ -98,17 +98,19 @@ def van_westendorp(plan: Plan, responses: list[dict]) -> dict:
 
 
 def _price_range(vw: dict, unit: str) -> str:
+    """Whole dollars, low–high first: the founder page reads the first two numbers as the range."""
     if vw["n"] == 0:
         return "No price answers yet"
+    unit = f" {unit}" if unit else ""
     label = f"directional, n={vw['n']}" if vw["directional"] else f"n={vw['n']}"
     if vw.get("pmc") is not None and vw.get("pme") is not None:
-        s = f"${vw['pmc']:.2f} to ${vw['pme']:.2f} {unit} acceptable range"
+        s = f"${round(vw['pmc'])}–${round(vw['pme'])}{unit} acceptable range"
         if vw.get("opp") is not None:
-            s += f", optimal around ${vw['opp']:.2f}"
+            s += f", optimal around ${round(vw['opp'])}"
         return f"{s} ({label})"
     return (
-        f"Bargain median ${vw['median_bargain']:.2f}, starts to feel expensive at "
-        f"${vw['median_expensive']:.2f} {unit} ({label}; curves did not cross)"
+        f"${round(vw['median_bargain'])}–${round(vw['median_expensive'])}{unit}: bargain to "
+        f"getting expensive, median answers ({label}; curves did not cross)"
     )
 
 

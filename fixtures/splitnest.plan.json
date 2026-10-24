@@ -1,0 +1,216 @@
+{
+  "summary": "Goal: learn whether a brand-new user can set up a household and add their first shared bill in SplitNest without help. SplitNest is a roommate bill-splitting app (rent, utilities, groceries) with payment nudges, built by two college seniors. It likely makes money through a freemium subscription. The founder explicitly chose 5 college students and a $100 budget, and those are kept. The onboarding goal fits the audience well, because college students living with roommates are the core users and are easy to recruit from the general population. We filled in the segment mix, the questions, and the willingness-to-pay framing. The main risks are the small sample, and that pricing feedback from students is directional only.",
+  "agent_notes": [
+    {
+      "type": "suggestion",
+      "issue": "Only 5 testers. Price results will be directional only, and 5 people may not reveal every onboarding stumbling block, such as the invite-roommates step.",
+      "change": "Consider 8 or more testers if the budget allows. About $160 at the current rate per tester.",
+      "why": "With 5 people, a single outlier can skew the Van Westendorp price ranges and hide less common setup failures.",
+      "applied": false
+    },
+    {
+      "type": "suggestion",
+      "issue": "$100 for 5 testers is $20 each. That is fine for a roughly 15-minute general-population session, but it leaves little margin.",
+      "change": "Keep the session at 15 minutes or less. Do not add extra tasks.",
+      "why": "Longer sessions at this pay level lead to rushed, low-effort answers.",
+      "applied": false
+    },
+    {
+      "type": "filled_gap",
+      "issue": "'College students' was not split by living situation, yet onboarding friction differs for someone who already manages bills and someone who never has.",
+      "change": "Created 3 testers who currently split bills with roommates and 2 who live with roommates but never handle the bills themselves.",
+      "why": "This prevents an onboarding read based only on experienced bill managers, who would hide confusion that newcomers face.",
+      "applied": true
+    },
+    {
+      "type": "filled_gap",
+      "issue": "No questions were given about current workarounds such as Venmo or Splitwise.",
+      "change": "Added a question on how testers split bills today and which tool they use.",
+      "why": "Shows whether onboarding is compared against Splitwise expectations, which explains confusion reports.",
+      "applied": true
+    },
+    {
+      "type": "filled_gap",
+      "issue": "The founder did not ask about inviting roommates, which is a likely drop-off point that comes after adding the first bill.",
+      "change": "Added a question on how confident testers are that roommates would join.",
+      "why": "A smooth solo setup can still fail if roommates never accept the invite.",
+      "applied": true
+    }
+  ],
+  "segments": [
+    {
+      "name": "Students who currently split bills with roommates",
+      "count": 3,
+      "why": "Core users with real bills to enter. They will notice when the setup does not match how they actually split costs.",
+      "criteria": [
+        "Currently enrolled college student in the US",
+        "Lives with 1 or more roommates",
+        "Has split rent, utilities or groceries with a roommate in the last 3 months"
+      ],
+      "screener": [
+        {
+          "q": "Are you currently enrolled in a college or university?",
+          "qualify_if": "Yes"
+        },
+        {
+          "q": "In the last 3 months, have you split rent, utilities or groceries with a roommate?",
+          "qualify_if": "Yes"
+        }
+      ]
+    },
+    {
+      "name": "Students with roommates who don't manage bills",
+      "count": 2,
+      "why": "True beginners. They test whether onboarding works for someone with no prior system in place.",
+      "criteria": [
+        "Currently enrolled college student in the US",
+        "Lives with roommates",
+        "Someone else usually handles shared bills"
+      ],
+      "screener": [
+        {
+          "q": "Are you currently enrolled in a college or university?",
+          "qualify_if": "Yes"
+        },
+        {
+          "q": "Who usually tracks or collects shared bills in your home?",
+          "qualify_if": "Someone else, or nobody"
+        }
+      ]
+    }
+  ],
+  "diversity_notes": [
+    "Mix of experienced bill splitters and beginners",
+    "Aim for both dorm and off-campus apartment living",
+    "Mix of current tools (Venmo, Splitwise, spreadsheets, none)",
+    "US students across different schools, with mixed gender and year of study"
+  ],
+  "tester_instructions": "1. Open https://splitnest.example.com on your phone or computer.\n2. Imagine you live with roommates. Without any help, create a household and add one shared bill, such as this month's electricity bill.\n3. Think aloud as you go and say what confuses you.\n4. Stop when you have added the bill, or after 7 minutes if you get stuck.\n5. Answer the questions honestly. There are no right answers.",
+  "est_minutes": 15,
+  "est_cost_usd": 100.0,
+  "total_testers": 5,
+  "questions": [
+    {
+      "id": "q1",
+      "text": "How do you and your roommates split shared bills today?",
+      "type": "choice",
+      "options": [
+        "Venmo/Cash App/Zelle only",
+        "Splitwise or a similar app",
+        "Spreadsheet or notes",
+        "One person pays, no tracking",
+        "Other"
+      ],
+      "purpose": "Establish current behavior and the mental model testers bring to setup"
+    },
+    {
+      "id": "q2",
+      "text": "Were you able to create a household and add a bill without help?",
+      "type": "choice",
+      "options": [
+        "Yes, easily",
+        "Yes, with some struggle",
+        "No, I got stuck"
+      ],
+      "purpose": "Measure the core onboarding success outcome"
+    },
+    {
+      "id": "q3",
+      "text": "Describe the moment, if any, where you felt unsure what to do next.",
+      "type": "text",
+      "options": [],
+      "purpose": "Pinpoint specific confusion points in onboarding"
+    },
+    {
+      "id": "q4",
+      "text": "How easy was it to create your household?",
+      "type": "scale_1_5",
+      "options": [],
+      "purpose": "Rate the difficulty of the household setup step"
+    },
+    {
+      "id": "q5",
+      "text": "How easy was it to add your first shared bill and choose how to split it?",
+      "type": "scale_1_5",
+      "options": [],
+      "purpose": "Rate the difficulty of the first-bill step"
+    },
+    {
+      "id": "q6",
+      "text": "Was anything asked of you during setup that you didn't expect or didn't want to give?",
+      "type": "text",
+      "options": [],
+      "purpose": "Find friction points and trust concerns in setup"
+    },
+    {
+      "id": "q7",
+      "text": "How likely is it that your actual roommates would accept an invite and join?",
+      "type": "scale_1_5",
+      "options": [],
+      "purpose": "Unasked question: tests the invite step as a drop-off risk"
+    },
+    {
+      "id": "q8",
+      "text": "What would make you stop using your current method and switch to this one?",
+      "type": "text",
+      "options": [],
+      "purpose": "Understand the value needed to switch from existing tools"
+    }
+  ],
+  "wtp_questions": [
+    {
+      "id": "wtp1",
+      "text": "At what price per month (per household) would SplitNest be so cheap you'd doubt its quality?",
+      "type": "number_usd"
+    },
+    {
+      "id": "wtp2",
+      "text": "At what price per month (per household) would SplitNest feel like a bargain?",
+      "type": "number_usd"
+    },
+    {
+      "id": "wtp3",
+      "text": "At what price per month (per household) would SplitNest start to feel expensive, though you'd still consider it?",
+      "type": "number_usd"
+    },
+    {
+      "id": "wtp4",
+      "text": "At what price per month (per household) would SplitNest be too expensive to consider?",
+      "type": "number_usd"
+    }
+  ],
+  "limitations": [
+    "5 testers is enough to spot major onboarding issues but not statistically significant",
+    "Price results are directional only and may be anchored by free tools like Splitwise",
+    "Testers set up a simulated household, not a real one with roommates who actually join",
+    "Testers are aware they are being observed, which may make them more persistent than real users"
+  ],
+  "max_cost_cents": 10000,
+  "terac_study": {
+    "title": "Try SplitNest and share your feedback",
+    "description": "Try SplitNest, a new product, and answer 12 short questions about it. About 15 minutes.",
+    "business_type": "b2c",
+    "num_participants": 5,
+    "device_types": [
+      "desktop"
+    ],
+    "expected_days_to_complete": 5,
+    "audience_note": "US adults (18+), general population. Segments: 3 x Students who currently split bills with roommates (Currently enrolled college student in the US, Lives with 1 or more roommates, Has split rent, utilities or groceries with a roommate in the last 3 months); 2 x Students with roommates who don't manage bills (Currently enrolled college student in the US, Lives with roommates, Someone else usually handles shared bills)",
+    "task": {
+      "task_type": "interview",
+      "review_type": "auto_approve",
+      "title": "Try SplitNest and answer the questions",
+      "description": "Try SplitNest, a new product, and answer 12 short questions about it. About 15 minutes.",
+      "instructions": "1. Open https://splitnest.example.com on your phone or computer.\n2. Imagine you live with roommates. Without any help, create a household and add one shared bill, such as this month's electricity bill.\n3. Think aloud as you go and say what confuses you.\n4. Stop when you have added the bill, or after 7 minutes if you get stuck.\n5. Answer the questions honestly. There are no right answers.",
+      "task_url": "https://OUR_SITE/study/fixture-splitnest"
+    },
+    "quote": {
+      "task_description": "Unmoderated product test: try SplitNest (https://splitnest.example.com) and answer 8 feedback questions and 4 pricing questions on our web page. About 15 minutes.",
+      "panel_description": "US adults (18+), general population. Segments: 3 x Students who currently split bills with roommates (Currently enrolled college student in the US, Lives with 1 or more roommates, Has split rent, utilities or groceries with a roommate in the last 3 months); 2 x Students with roommates who don't manage bills (Currently enrolled college student in the US, Lives with roommates, Someone else usually handles shared bills)",
+      "submission_count": 5,
+      "timeline_hours": 3,
+      "pay_rate_frequency": "ONE_TIME",
+      "loi_minutes": 15
+    }
+  }
+}
