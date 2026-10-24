@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>vera — real people test your product</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2ece1;--paper:#f8f3ea;--ink:#171310;--ink-2:#6b6156;--ink-3:#aea496;--line:#d8d0c2;--grid:#cdc4b4;--acc:#e8641b;--acc2:#1b47e8;--ok:#2a7d4f;
+ color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120f0c;--paper:#1a1612;--ink:#f1ece2;--ink-2:#a1978a;--ink-3:#5a544b;--line:#2a2520;--grid:#2e2922;--acc:#ff7a33;--acc2:#6f90ff;--ok:#5fc78c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#120f0c;--paper:#1a1612;--ink:#f1ece2;--ink-2:#a1978a;--ink-3:#5a544b;--line:#2a2520;--grid:#2e2922;--acc:#ff7a33;--acc2:#6f90ff;--ok:#5fc78c;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;line-height:1.6;text-transform:lowercase;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit;text-transform:lowercase;color:inherit}
+.px{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;letter-spacing:-.01em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* chrome */
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+.top nav{display:flex;gap:18px;color:var(--ink-2);flex-wrap:wrap}
+.top nav a:hover{color:var(--ink)}
+.top nav a.on{color:var(--acc)}
+.btn{display:inline-block;background:var(--acc);color:#fff;padding:10px 14px;font-weight:500;border:0;cursor:pointer}
+.btn:hover{background:var(--acc2)}
+.btn.ghost{background:transparent;color:var(--acc2);border:1px solid var(--acc2)}
+.btn.ghost:hover{background:var(--acc2);color:#fff}
+.btn:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
+.page{display:none}.page.on{display:block}
+.pagebar{border-bottom:1px solid var(--line);background:var(--paper);padding:8px 24px;font-size:11px;color:var(--ink-3);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pagebar b{color:var(--ink);font-weight:500}
+.pagebar a{border:1px solid var(--line);padding:4px 8px}
+.pagebar a.on{border-color:var(--acc);color:var(--acc)}
+
+/* hero */
+.hero{position:relative;height:min(74vh,580px);overflow:hidden;border-bottom:1px solid var(--line)}
+#dither{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;cursor:crosshair;touch-action:none}
+.hero .txt{position:absolute;left:24px;top:30px;max-width:min(660px,calc(100% - 48px));pointer-events:none;color:#120f0c}
+h1{margin:0;font-size:clamp(34px,6vw,72px);line-height:1.02;font-weight:700;letter-spacing:-.025em;color:#120f0c}
+.hero .cta{position:absolute;right:24px;bottom:18px;background:var(--acc);color:#fff;padding:12px 16px;font-weight:500}
+.hero .cta:hover{background:var(--acc2)}
+.band{border-bottom:1px solid var(--line);padding:26px 24px;display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:start}
+@media (max-width:820px){.band{grid-template-columns:1fr;gap:16px}}
+.band p{margin:0;font-size:15px;max-width:560px}
+.band .meta{display:flex;flex-direction:column;gap:8px;font-size:12px}
+.band .meta span{border-left:2px solid var(--line);padding-left:10px}
+.band .meta .o{border-color:var(--acc)}
+.band .meta .b{border-color:var(--acc2)}
+
+/* generic sections */
+section.pad{padding:48px 24px}
+.dotted{background-image:radial-gradient(var(--grid) 1px,transparent 1.2px);background-size:22px 22px}
+h2{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.015em;margin:0 0 10px}
+h3{font-size:14px;font-weight:600;margin:0 0 6px}
+p.lead{max-width:620px;color:var(--ink-2);margin:0 0 28px}
+.win{position:relative;background:var(--paper);border:1.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);max-width:430px;padding:24px 26px}
+.win .bar{position:absolute;right:10px;top:4px;font-size:14px;letter-spacing:4px}
+.win p{margin:0;line-height:1.6}.win p+p{margin-top:12px}
+.win .q{color:var(--acc2)}.win .a b{color:var(--acc);font-weight:500}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:1080px;margin:60px auto 0}
+@media (max-width:860px){.cols{grid-template-columns:1fr;gap:22px}}
+.cols>div{border-top:1px solid var(--line);padding-top:14px}
+.cols span{display:block;margin-bottom:10px;font-size:11px;font-weight:500}
+.cols>div:nth-child(1) span{color:var(--acc)}
+.cols>div:nth-child(2) span{color:var(--acc2)}
+.cols>div:nth-child(3) span{color:var(--acc)}
+.cols>div:nth-child(1){border-top-color:var(--acc)}
+.cols>div:nth-child(2){border-top-color:var(--acc2)}
+.cols>div:nth-child(3){border-top-color:var(--acc)}
+.cols b{font-weight:600;display:block;margin-bottom:6px}
+.cols div{color:var(--ink-2)}
+
+/* forms */
+.form{max-width:560px;margin:0 auto;padding:40px 24px 80px}
+.form.wide{max-width:720px}
+.steps{display:flex;gap:6px;margin-bottom:26px}
+.steps i{flex:1;height:3px;background:var(--line);display:block}
+.steps i.on{background:var(--acc)}
+.steps i.on+i.on{background:var(--acc2)}
+label{display:block;margin:0 0 6px;font-weight:500}
+.hint{color:var(--ink-3);font-size:11px;margin:4px 0 0}
+.field{margin-bottom:22px}
+input[type=text],input[type=email],input[type=password],input[type=number],textarea{width:100%;background:var(--paper);border:1px solid var(--line);padding:11px 12px}
+textarea{min-height:110px;resize:vertical}
+input::placeholder,textarea::placeholder{color:var(--ink-3)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:620px){.row2{grid-template-columns:1fr}}
+.actions{display:flex;gap:10px;align-items:center;margin-top:28px;flex-wrap:wrap}
+.split{border:1px solid var(--line);background:var(--paper);padding:14px;margin-top:10px;font-size:12px}
+.split b{color:var(--acc);font-weight:500}
+.kbd{border:1px solid var(--line);padding:2px 6px;font-size:11px;color:var(--ink-2)}
+
+/* study */
+.timeline{display:flex;gap:0;margin:0 0 30px;border:1px solid var(--line);background:var(--paper)}
+.timeline div{flex:1;padding:10px 12px;border-right:1px solid var(--line);font-size:11px;color:var(--ink-3)}
+.timeline div:last-child{border-right:0}
+.timeline div.done{color:var(--ink)}
+.timeline div.now{color:var(--acc2);background:color-mix(in srgb,var(--acc2) 10%,transparent)}
+.timeline b{display:block;font-weight:600}
+.diff{border-left:3px solid var(--acc);background:var(--paper);padding:12px 14px;margin-bottom:10px}
+.diff s{color:var(--ink-3)}
+.diff b{color:var(--acc);font-weight:500}
+.seg{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.seg small{grid-column:1/-1;color:var(--ink-2)}
+.seg .n{font-weight:600;color:var(--acc2)}
+.bar{grid-column:1/-1;height:4px;background:var(--line)}.bar i{display:block;height:100%;background:var(--acc2)}
+.q{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.tag{font-size:10px;color:var(--acc);border:1px solid var(--acc);padding:1px 6px;white-space:nowrap}
+.tag.b{color:var(--acc2);border-color:var(--acc2)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+@media (max-width:860px){.grid2{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);background:var(--paper);padding:16px;margin-bottom:12px}
+.card b{display:block;margin-bottom:4px}
+.card q{color:var(--ink-2);display:block;margin-top:6px}
+.range{position:relative;height:52px;margin:18px 0 8px}
+.range .ax{position:absolute;left:0;right:0;top:24px;height:1px;background:var(--line)}
+.range .bd{position:absolute;top:16px;height:16px;background:color-mix(in srgb,var(--acc) 22%,transparent);border:1px solid var(--acc)}
+.range .op{position:absolute;top:8px;width:2px;height:32px;background:var(--acc2)}
+.range em{position:absolute;top:44px;font-size:10px;color:var(--ink-3);transform:translateX(-50%);font-style:normal}
+.rec{border:1px solid var(--acc2);padding:14px;background:color-mix(in srgb,var(--acc2) 8%,transparent)}
+.studies{display:grid;gap:12px}
+.study{border:1px solid var(--line);background:var(--paper);padding:16px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.pill{font-size:10px;padding:3px 8px;border:1px solid var(--ink-3);color:var(--ink-2)}
+.pill.live{border-color:var(--acc2);color:var(--acc2)}
+.pill.done{border-color:var(--ok);color:var(--ok)}
+.empty{border:1px dashed var(--line);padding:40px;text-align:center;color:var(--ink-2)}
+footer{border-top:1px solid var(--line);padding:16px 24px;color:var(--ink-3);font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="#home" class="px" style="font-size:21px;font-weight:700">vera</a>
+  <nav id="nav">
+    <a href="#home">home</a><a href="#brief">start a study</a><a href="#studies">my studies</a>
+  </nav>
+  <a class="btn" href="#brief">start a study</a>
+</header>
+
+<!-- ============ HOME ============ -->
+<div class="page" id="p-home">
+  <section class="hero">
+    <canvas id="dither" aria-label="field of testers, drag to paint"></canvas>
+    <div class="txt"><h1 class="px">describe it.<br>real people test it.</h1></div>
+    <a class="cta" href="#brief">start a study →</a>
+  </section>
+  <div class="band">
+    <p>an agent designs the study, recruits verified testers through terac, and writes you the memo. you pay once, on whop.</p>
+    <div class="meta"><span class="o">from $15</span><span class="b">8 verified testers</span><span class="o">a written memo, not transcripts</span></div>
+  </div>
+
+  <section class="pad dotted">
+    <h2>who tests your product?</h2>
+    <p class="lead">founders pick people who agree with them. vera picks the people who will change your mind, then asks them the questions you forgot.</p>
+    <div class="win"><span class="bar">– ×</span>
+      <p class="q">your brief &rsaquo; “test it with phd biologists.”</p>
+      <p class="a">vera &rsaquo; biologists use it; a <b>lab manager</b> approves the purchase. adding three, or you learn nothing about price.</p>
+    </div>
+    <div class="cols">
+      <div><span>01 · brief</span><b>tell us what you built</b>product link, what you want to learn, who you think the user is. pay on whop.</div>
+      <div><span>02 · judgment</span><b>vera pushes back</b>widens narrow personas, adds the missing buyer, writes four price questions, posts the study to terac.</div>
+      <div><span>03 · memo</span><b>themes, quotes, a price</b>an acceptable price range and one recommendation, written up for you.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ SIGN UP ============ -->
+<div class="page" id="p-signup">
+  <div class="form">
+    <h2>create an account</h2>
+    <p class="lead">one account per startup. you’ll come back here to read your report.</p>
+    <div class="field"><label for="su1">company</label><input id="su1" type="text" placeholder="benchpilot"></div>
+    <div class="field"><label for="su2">work email</label><input id="su2" type="email" placeholder="you@benchpilot.bio"><p class="hint">we send your study link here. no spam, no newsletter.</p></div>
+    <div class="field"><label for="su3">password</label><input id="su3" type="password" placeholder="••••••••"></div>
+    <div class="actions"><button class="btn" id="suGo">continue →</button><span class="hint" id="suMsg">we only need an email to find your studies again.</span></div>
+  </div>
+</div>
+
+<!-- ============ BRIEF ============ -->
+<div class="page" id="p-brief">
+  <div class="form wide">
+    <div class="steps"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+    <h2>your brief</h2>
+    <p class="lead">four short sections. be as specific as you can — vera will tell you where you’re wrong before anyone is recruited.</p>
+
+    <h3 style="color:var(--acc)">01 · about you</h3>
+    <div class="field"><label for="b1">mission, in one line</label><input id="b1" type="text" placeholder="we plan wet-lab experiments and catch protocol errors"></div>
+    <div class="field"><label for="b2">founders</label><input id="b2" type="text" placeholder="two, ex-broad institute"></div>
+
+    <h3 style="color:var(--acc2)">02 · your product</h3>
+    <div class="field"><label for="b3">a live link testers can try</label><input id="b3" type="text" placeholder="https://benchpilot.bio/demo"><p class="hint">it has to be reachable without an invite.</p></div>
+    <div class="field"><label for="b4">anything testers should know first</label><textarea id="b4" placeholder="skip onboarding with the demo account on the login page. the ai suggestions take ~10s."></textarea></div>
+
+    <h3 style="color:var(--acc)">03 · who should test it</h3>
+    <div class="field"><label for="b5">your target persona</label><input id="b5" type="text" placeholder="phd biologists"></div>
+    <div class="field"><label for="b6">be super specific (optional)</label><textarea id="b6" placeholder="phd biologists at mid-size biotechs who run wet-lab experiments weekly"></textarea><p class="hint">vera reviews this and will suggest who else to include.</p></div>
+    <div class="field"><label for="b7">what do you want to learn?</label><textarea id="b7" placeholder="would they use it daily, and what would they pay for it"></textarea></div>
+
+    <h3 style="color:var(--acc2)">04 · budget</h3>
+    <div class="row2">
+      <div class="field"><label for="b8">budget (usd)</label><input id="b8" type="number" value="15" min="15" step="5">
+        <div class="split"><b id="bt">$15</b> buys you <b id="bn">8</b> verified testers, recruited through terac.</div>
+      </div>
+      <div class="field"><label>how it works</label><p class="hint" style="margin-top:0">you pay on whop. vera starts the moment whop confirms. nothing is recruited before payment clears.</p></div>
+    </div>
+    <div class="actions"><button class="btn" id="briefGo">review and pay on whop →</button><span class="hint" id="briefMsg">you can edit everything until you pay</span></div>
+  </div>
+</div>
+
+<!-- ============ CHECKOUT ============ -->
+<div class="page" id="p-pay">
+  <div class="form">
+    <h2>review</h2>
+    <p class="lead">check this before money moves. once whop confirms, vera designs the study and posts it to terac.</p>
+    <div class="win" style="max-width:none" id="reviewWin"><span class="bar">– ×</span>
+      <p class="q" id="rvName">—</p>
+      <p id="rvBody">—</p>
+      <p class="a">total &rsaquo; <b id="rvTotal">—</b></p>
+    </div>
+    <div class="actions"><a class="btn" id="payGo" href="#">pay on whop →</a><a class="btn ghost" href="#brief">edit the brief</a></div>
+    <p class="hint" style="margin-top:20px">you’ll land back on your study page. it stays “waiting on whop” until the webhook confirms the payment — we never mark a study paid just because you came back from checkout.</p>
+  </div>
+</div>
+
+<!-- ============ MY STUDIES ============ -->
+<div class="page" id="p-studies">
+  <div class="wrap" style="padding-top:40px;padding-bottom:80px">
+    <h2>my studies</h2>
+    <p class="lead">one card per study. open one to read the plan, vera’s reasoning, and the memo.</p>
+    <div class="studies" id="studyList"><div class="empty">loading…</div></div>
+  </div>
+  </div>
+</div>
+
+<!-- ============ STUDY ============ -->
+<div class="page" id="p-study">
+  <div class="wrap" style="padding-top:36px;padding-bottom:80px" id="studyRoot">
+    <div class="empty">loading…</div>
+  </div>
+</div>
+
+<footer><span>vera · payments on whop · testers verified through terac</span><span>terac zero human company hackathon, nyc</span></footer>
+
+<script src="config.js"></script>
+<script>
+/* ============================================================
+   vera — app logic
+   config lives in config.js so you can change keys without
+   touching this file.
+   ============================================================ */
+(function(){
+var CFG = window.VERA_CONFIG || {};
+var SB   = (CFG.supabaseUrl||'').replace(/\/$/,'');
+var KEY  = CFG.supabaseAnonKey||'';
+var WHOP = CFG.whopCheckoutUrl||'';
+var LIVE = !!(SB && KEY);
+
+/* ---------- tiny supabase rest client ---------- */
+function sb(path, opts){
+  opts = opts||{};
+  return fetch(SB+'/rest/v1/'+path, {
+    method: opts.method||'GET',
+    headers: {
+      'apikey': KEY,
+      'Authorization': 'Bearer '+KEY,
+      'Content-Type': 'application/json',
+      'Prefer': opts.prefer||'return=representation'
+    },
+    body: opts.body?JSON.stringify(opts.body):undefined
+  }).then(function(r){
+    if(!r.ok) return r.text().then(function(t){ throw new Error(r.status+' '+t); });
+    return r.status===204?null:r.json();
+  });
+}
+
+/* ---------- local identity (no passwords today) ---------- */
+function email(){ return localStorage.getItem('vera_email')||''; }
+function setEmail(e){ localStorage.setItem('vera_email', e); }
+function draft(){ try{ return JSON.parse(localStorage.getItem('vera_draft')||'null'); }catch(e){ return null; } }
+function setDraft(d){ localStorage.setItem('vera_draft', JSON.stringify(d)); }
+
+/* ---------- demo fallback so the page is never blank ---------- */
+var DEMO = {
+  study_id:'demo', status:'collecting',
+  startup:{name:'benchpilot', email:'demo@benchpilot.bio', mission:'plans wet-lab experiments and catches protocol errors', founders:'two, ex-broad institute', product_url:'https://benchpilot.bio/demo'},
+  brief:{feedback_goals:'daily use + willingness to pay', persona:'phd biologists', budget_usd:15},
+  plan:{
+    agent_pushback:[
+      'you said <s>phd biologists</s> &rsaquo; <b>biologists + lab managers</b> — lab managers hold the budget. without them you learn nothing about price.',
+      'you asked <s>“do you like it?”</s> &rsaquo; <b>“what would make you stop using it after a week?”</b> — everyone says yes to the first one.',
+      'added &rsaquo; <b>a baseline question</b> — what do you use today, and what does it cost you in time?'
+    ],
+    segments:[
+      {name:'bench biologists, academic', count:3, why:'daily users; test the workflow itself'},
+      {name:'bench biologists, industry', count:2, why:'faster adoption cycles, different tooling'},
+      {name:'lab managers', count:3, why:'hold the budget; needed for any pricing signal'}
+    ],
+    questions:[
+      'walk through planning one experiment. where did you hesitate?',
+      'what do you use for this today, and what does it cost you in time?',
+      'what would make you stop using it after a week?'
+    ],
+    wtp_questions:[
+      'at what price is this so cheap you’d doubt it works?',
+      'at what price is it a bargain?',
+      'at what price is it getting expensive?',
+      'at what price is it too expensive to consider?'
+    ]
+  },
+  payment:{whop_id:'demo', paid:true},
+  responses:[{},{},{},{}],
+  report:{
+    themes:['protocol checks are the hook','lab managers want an audit trail'],
+    quotes:['it caught a dilution error i make every month.','i’d pay for the log alone.'],
+    price_range:'$29–$64', recommendation:'lead with the error check, sell the audit log to lab managers, price at $42/seat.'
+  },
+  created_at:new Date().toISOString()
+};
+
+/* ---------- helpers ---------- */
+function esc(x){ return String(x==null?'':x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function el(id){ return document.getElementById(id); }
+function money(n){ return '$'+Number(n||0).toFixed(2); }
+var STAGES=['draft','paid','live','collecting','done'];
+var STAGE_LABEL={draft:'draft',paid:'paid',live:'live on terac',collecting:'collecting',done:'report'};
+
+/* ---------- router ---------- */
+var pages=['home','signup','brief','pay','studies','study'];
+function parse(){
+  var h=(location.hash||'#home').slice(1).split('/');
+  return {page:h[0]||'home', id:h[1]||''};
+}
+function show(){
+  var r=parse(); var id=pages.indexOf(r.page)<0?'home':r.page;
+  pages.forEach(function(p){ var e=el('p-'+p); if(e) e.classList.toggle('on', p===id); });
+  document.querySelectorAll('#nav a').forEach(function(a){
+    a.classList.toggle('on', a.getAttribute('href')==='#'+id);
+  });
+  window.scrollTo(0,0);
+  if(id==='pay') renderReview();
+  if(id==='studies') loadStudies();
+  if(id==='study') loadStudy(r.id);
+  else stopPoll();
+}
+addEventListener('hashchange', show);
+
+/* ---------- sign up ---------- */
+if(el('suGo')) el('suGo').addEventListener('click', function(){
+  var e=(el('su2').value||'').trim();
+  if(!/^\S+@\S+\.\S+$/.test(e)){ el('suMsg').textContent='that email doesn’t look right.'; return; }
+  setEmail(e);
+  var d=draft()||{}; d.company=(el('su1').value||'').trim(); setDraft(d);
+  location.hash='#brief';
+});
+
+/* ---------- brief ---------- */
+var bud=el('b8');
+if(bud){
+  var upd=function(){
+    var v=Math.max(15, +bud.value||15);
+    el('bt').textContent='$'+v;
+    el('bn').textContent=Math.max(4, Math.round(v*0.8/1.5));
+  };
+  bud.addEventListener('input', upd); upd();
+}
+if(el('briefGo')) el('briefGo').addEventListener('click', function(){
+  var d={
+    company:(el('b1')&&draft()&&draft().company)||'',
+    mission:(el('b1').value||'').trim(),
+    founders:(el('b2').value||'').trim(),
+    product_url:(el('b3').value||'').trim(),
+    context:(el('b4').value||'').trim(),
+    persona:(el('b5').value||'').trim(),
+    persona_detail:(el('b6').value||'').trim(),
+    feedback_goals:(el('b7').value||'').trim(),
+    budget_usd:Math.max(15, +el('b8').value||15)
+  };
+  if(!d.product_url){ el('briefMsg').textContent='we need a live link testers can open.'; return; }
+  if(!d.persona){ el('briefMsg').textContent='tell us who you think should test it.'; return; }
+  setDraft(Object.assign(draft()||{}, d));
+  location.hash='#pay';
+});
+
+/* ---------- review + checkout ---------- */
+function renderReview(){
+  var d=draft(); if(!d){ location.hash='#brief'; return; }
+  el('rvName').textContent=(d.company||'your product')+' · '+(d.mission||'');
+  el('rvBody').innerHTML='testers &rsaquo; '+esc(d.persona)+' (vera may widen this)<br>goal &rsaquo; '+esc(d.feedback_goals||'—')+'<br>link &rsaquo; '+esc(d.product_url);
+  el('rvTotal').textContent=money(d.budget_usd);
+  el('payGo').textContent='pay '+money(d.budget_usd)+' on whop →';
+}
+if(el('payGo')) el('payGo').addEventListener('click', function(ev){
+  ev.preventDefault();
+  var d=draft(); if(!d) return;
+  var btn=this; btn.textContent='saving…';
+  createStudy(d).then(function(row){
+    if(!WHOP){ location.hash='#study/'+row.study_id; return; }
+    /* study id travels to whop as metadata; the webhook marks it paid */
+    var u=new URL(WHOP);
+    u.searchParams.set('metadata[study_id]', row.study_id);
+    u.searchParams.set('d2c_redirect_uri', location.origin+location.pathname+'#study/'+row.study_id);
+    location.href=u.toString();
+  }).catch(function(e){
+    btn.textContent='pay on whop →';
+    alert('could not save the study: '+e.message);
+  });
+});
+function createStudy(d){
+  var row={
+    status:'draft',
+    startup:{name:d.company||'', email:email(), mission:d.mission, founders:d.founders, product_url:d.product_url, context:d.context},
+    brief:{feedback_goals:d.feedback_goals, persona:d.persona, persona_detail:d.persona_detail, budget_usd:d.budget_usd},
+    plan:{segments:[],agent_pushback:[],questions:[],wtp_questions:[]},
+    payment:{whop_id:'', paid:false, our_fee:0, study_budget:0},
+    terac:{study_ref:'', posted_at:null},
+    responses:[],
+    report:{themes:[],quotes:[],price_range:'',recommendation:''}
+  };
+  if(!LIVE) return Promise.resolve({study_id:'demo'});
+  return sb('studies', {method:'POST', body:row}).then(function(r){ return r[0]; });
+}
+
+/* ---------- my studies ---------- */
+function loadStudies(){
+  var box=el('studyList'); if(!box) return;
+  if(!LIVE){ box.innerHTML=card(DEMO); return; }
+  var e=email();
+  if(!e){ box.innerHTML='<div class="empty">no studies on this device yet. <a href="#brief" style="color:var(--acc)">start one →</a></div>'; return; }
+  sb('studies?select=*&startup->>email=eq.'+encodeURIComponent(e)+'&order=created_at.desc')
+    .then(function(rows){
+      box.innerHTML = rows.length ? rows.map(card).join('')
+        : '<div class="empty">no studies yet. <a href="#brief" style="color:var(--acc)">start one →</a></div>';
+    })
+    .catch(function(err){ box.innerHTML='<div class="empty">could not load your studies. '+esc(err.message)+'</div>'; });
+}
+function card(r){
+  var done=(r.responses||[]).length, want=(r.plan&&r.plan.segments||[]).reduce(function(a,s){return a+(s.count||0)},0);
+  var cls=r.status==='done'?'done':(r.status==='draft'?'':'live');
+  var label=r.status==='collecting'?('collecting · '+done+' of '+(want||'—')):(r.status==='draft'?'waiting on whop':STAGE_LABEL[r.status]||r.status);
+  return '<a class="study" href="#study/'+esc(r.study_id)+'"><span><b>'+esc((r.startup&&r.startup.name)||'untitled')+' · '+esc((r.brief&&r.brief.feedback_goals)||'')+'</b><br>'+
+   '<span class="hint">study '+esc(String(r.study_id).slice(0,4))+' · '+money((r.brief&&r.brief.budget_usd)||0)+'</span></span>'+
+   '<span><span class="pill '+cls+'">'+esc(label)+'</span></span></a>';
+}
+
+/* ---------- study page ---------- */
+var poll=null;
+function stopPoll(){ if(poll){ clearInterval(poll); poll=null; } }
+function loadStudy(id){
+  stopPoll();
+  if(!id){ location.hash='#studies'; return; }
+  var draw=function(){
+    if(!LIVE || id==='demo'){ renderStudy(DEMO); return Promise.resolve(); }
+    return sb('studies?select=*&study_id=eq.'+encodeURIComponent(id)+'&limit=1')
+      .then(function(rows){
+        if(!rows.length){ el('studyRoot').innerHTML='<div class="empty">we can’t find that study.</div>'; stopPoll(); return; }
+        renderStudy(rows[0]);
+      })
+      .catch(function(e){ el('studyRoot').innerHTML='<div class="empty">'+esc(e.message)+'</div>'; stopPoll(); });
+  };
+  draw();
+  if(LIVE && id!=='demo') poll=setInterval(draw, 8000);
+}
+function renderStudy(r){
+  var p=r.plan||{}, rep=r.report||{}, pay=r.payment||{};
+  var want=(p.segments||[]).reduce(function(a,s){return a+(s.count||0)},0);
+  var got=(r.responses||[]).length;
+  var idx=STAGES.indexOf(r.status); if(idx<0) idx=0;
+
+  var tl=STAGES.map(function(st,i){
+    var cls=i<idx?'done':(i===idx?'now':'');
+    var sub=st==='collecting'?(got+' of '+(want||'—')):(i<=idx?'✓':'—');
+    return '<div class="'+cls+'"><b>'+STAGE_LABEL[st]+'</b>'+sub+'</div>';
+  }).join('');
+
+  var push=(p.agent_pushback||[]).map(function(t){ return '<div class="diff">'+t+'</div>'; }).join('')
+    || '<div class="empty">vera is reading your brief…</div>';
+
+  var segs=(p.segments||[]).map(function(sg){
+    var pct=want?Math.round((sg.count/want)*100):0;
+    return '<div class="seg"><span>'+esc(sg.name)+'</span><span class="n">'+esc(sg.count)+'</span><small>'+esc(sg.why)+'</small><div class="bar"><i style="width:'+pct+'%"></i></div></div>';
+  }).join('') || '<div class="empty">designing the test group…</div>';
+
+  var qs=(p.questions||[]).map(function(q,i){
+    return '<div class="q"><span>'+esc(q)+'</span>'+(i>0?'<span class="tag">added by vera</span>':'')+'</div>';
+  }).join('')+(p.wtp_questions||[]).map(function(q){
+    return '<div class="q"><span>'+esc(q)+'</span><span class="tag b">price</span></div>';
+  }).join('');
+  if(!qs) qs='<div class="empty">writing the questions…</div>';
+
+  var memo;
+  if(r.status==='done' && (rep.themes||[]).length){
+    memo=(rep.themes||[]).map(function(t,i){
+      return '<div class="card"><b>'+esc(t)+'</b>'+((rep.quotes||[])[i]?'<q>'+esc(rep.quotes[i])+'</q>':'')+'</div>';
+    }).join('');
+    if(rep.price_range){
+      var n=String(rep.price_range).match(/\d+/g)||[];
+      var lo=+n[0]||0, hi=+n[1]||0, max=Math.max(120, hi*1.6);
+      memo+='<div class="range"><div class="ax"></div><div class="bd" style="left:'+(lo/max*100)+'%;width:'+((hi-lo)/max*100)+'%"></div>'+
+        '<div class="op" style="left:'+(((lo+hi)/2)/max*100)+'%"></div>'+
+        '<em style="left:0">$0</em><em style="left:50%">$'+Math.round(max/2)+'</em><em style="left:100%">$'+Math.round(max)+'</em></div>'+
+        '<p class="hint" style="margin-top:0">acceptable range '+esc(rep.price_range)+'</p>';
+    }
+    if(rep.recommendation) memo+='<div class="rec"><b>recommendation</b> '+esc(rep.recommendation)+'</div>';
+  } else {
+    memo='<div class="empty">'+(r.status==='collecting'?('waiting on responses · '+got+' of '+(want||'—')+' in'):'the memo lands here once everyone has answered')+'</div>';
+  }
+
+  el('studyRoot').innerHTML =
+    '<p class="hint">study '+esc(String(r.study_id).slice(0,8))+' · '+esc((r.startup&&r.startup.name)||'')+(pay.paid?'':' · waiting on whop to confirm payment')+'</p>'+
+    '<h2>'+esc((r.brief&&r.brief.feedback_goals)||'your study')+'</h2>'+
+    '<div class="timeline">'+tl+'</div>'+
+    '<div class="grid2"><div>'+
+      '<h3>what vera changed</h3>'+push+
+      '<h3 style="margin-top:28px">who’s testing</h3>'+segs+
+    '</div><div>'+
+      '<h3>questions</h3>'+qs+
+      '<h3 style="margin-top:28px">memo</h3>'+memo+
+    '</div></div>';
+}
+
+/* boot */
+show();
+})();
+</script>
+<script>
+(function(){
+var cv=document.getElementById('dither');if(!cv)return;var cx=cv.getContext('2d'),S=4; // pixel size
+var W=0,H=0,bw=0,bh=0,img,heat;
+var pal=[[244,237,226],[255,186,120],[232,100,27],[120,60,180],[27,71,232]];
+var B=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
+function resize(){var r=cv.getBoundingClientRect();W=r.width;H=r.height;bw=Math.ceil(W/S);bh=Math.ceil(H/S);cv.width=bw;cv.height=bh;img=cx.createImageData(bw,bh);heat=new Float32Array(bw*bh);}
+addEventListener('resize',resize);resize();
+function lerp(a,b,t){return a+(b-a)*t}
+function look(v){var p=pal;var f=Math.max(0,Math.min(.9999,v))*(p.length-1),i=f|0,t=f-i;return [lerp(p[i][0],p[i+1][0],t),lerp(p[i][1],p[i+1][1],t),lerp(p[i][2],p[i+1][2],t)];}
+var mx=-1,my=-1,down=false,t=0;
+cv.addEventListener('pointermove',function(e){var r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/S;my=(e.clientY-r.top)/S;});
+cv.addEventListener('pointerdown',function(){down=true});addEventListener('pointerup',function(){down=false});
+cv.addEventListener('pointerleave',function(){mx=my=-1;});
+function tick(){t+=.006;var d=img.data;
+ var rad=down?22:9,str=down?.16:.05;
+ for(var y=0;y<bh;y++)for(var x=0;x<bw;x++){var i=y*bw+x;
+  if(mx>=0){var dx=x-mx,dy=y-my,dd=dx*dx+dy*dy;if(dd<rad*rad)heat[i]=Math.min(1,heat[i]+str*(1-dd/(rad*rad)));}
+  heat[i]*=.985;
+  var nx=x/bw,ny=y/bh;
+  var h=Math.sin(nx*6.5+t*2+Math.sin(ny*3+t)*1.2)*.5+Math.sin(ny*4.2-t*1.3+nx*2)*.3+Math.sin((nx+ny)*9+t)*.12;
+  var v=(ny*1.4-.3)+h*.22+heat[i]*.9; // low at top, hills
+  var th=(B[y&3][x&3]+.5)/16; // ordered dither
+  var lv=Math.floor(v*8+th-.5)/8;
+  var c=look(lv);var o=i*4;d[o]=c[0];d[o+1]=c[1];d[o+2]=c[2];d[o+3]=255;}
+ cx.putImageData(img,0,0);requestAnimationFrame(tick);}
+tick();
+})();
+</script>
+</body>
+</html>
