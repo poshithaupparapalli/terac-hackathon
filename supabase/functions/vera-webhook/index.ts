@@ -47,6 +47,8 @@ Deno.serve(async (req) => {
   } catch (e) {
     console.error("[vera-webhook]", e);
     await log(`error: ${e}`);
+    // Whop doesn't know this payment (e.g. dashboard test events): retrying won't help.
+    if (String(e).includes("→ 404")) return json({ ok: true, warning: "payment not found at Whop" });
     return json({ error: String(e) }, 500); // non-2xx → Whop retries
   }
 });
