@@ -1,0 +1,40 @@
+{
+  "study_id": "fixture-pipetteiq",
+  "status": "draft",
+  "startup": {
+    "name": "PipetteIQ",
+    "email": "founders@pipetteiq.example",
+    "mission": "Catch errors in wet-lab protocols before they waste a week of experiments: paste a protocol, get flagged volume, unit, and step-order mistakes.",
+    "founders": "Two ex-postdocs",
+    "product_url": "https://pipetteiq.example.com"
+  },
+  "brief": {
+    "feedback_goals": "General feedback: is the error checking useful and trustworthy, and would labs pay for it?",
+    "persona": "biologists",
+    "budget_usd": 200,
+    "desired_testers": 20
+  },
+  "plan": {
+    "segments": [],
+    "agent_pushback": [],
+    "questions": [],
+    "wtp_questions": []
+  },
+  "payment": {
+    "whop_id": "",
+    "paid": false,
+    "our_fee": 0,
+    "study_budget": 0
+  },
+  "terac": {
+    "study_ref": "",
+    "posted_at": ""
+  },
+  "responses": [],
+  "report": {
+    "themes": [],
+    "quotes": [],
+    "price_range": "",
+    "recommendation": ""
+  }
+}

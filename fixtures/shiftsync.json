@@ -1,0 +1,40 @@
+{
+  "study_id": "fixture-shiftsync",
+  "status": "draft",
+  "startup": {
+    "name": "ShiftSync",
+    "email": "founders@shiftsync.example",
+    "mission": "Restaurant staff scheduling SaaS: build weekly shifts, handle swaps and time-off, text staff their schedule.",
+    "founders": "Former restaurant GM and an engineer",
+    "product_url": "https://shiftsync.example.com"
+  },
+  "brief": {
+    "feedback_goals": "Willingness to pay: what monthly price per location is acceptable?",
+    "persona": "restaurant owners",
+    "budget_usd": 300,
+    "desired_testers": 30
+  },
+  "plan": {
+    "segments": [],
+    "agent_pushback": [],
+    "questions": [],
+    "wtp_questions": []
+  },
+  "payment": {
+    "whop_id": "",
+    "paid": false,
+    "our_fee": 0,
+    "study_budget": 0
+  },
+  "terac": {
+    "study_ref": "",
+    "posted_at": ""
+  },
+  "responses": [],
+  "report": {
+    "themes": [],
+    "quotes": [],
+    "price_range": "",
+    "recommendation": ""
+  }
+}

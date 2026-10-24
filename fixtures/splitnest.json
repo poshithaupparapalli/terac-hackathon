@@ -1,0 +1,40 @@
+{
+  "study_id": "fixture-splitnest",
+  "status": "draft",
+  "startup": {
+    "name": "SplitNest",
+    "email": "founders@splitnest.example",
+    "mission": "Roommate bill splitting that tracks rent, utilities and groceries and nudges people to pay up.",
+    "founders": "Two college seniors",
+    "product_url": "https://splitnest.example.com"
+  },
+  "brief": {
+    "feedback_goals": "Onboarding: can a new user set up a household and add the first shared bill without help?",
+    "persona": "college students",
+    "budget_usd": 100,
+    "desired_testers": 5
+  },
+  "plan": {
+    "segments": [],
+    "agent_pushback": [],
+    "questions": [],
+    "wtp_questions": []
+  },
+  "payment": {
+    "whop_id": "",
+    "paid": false,
+    "our_fee": 0,
+    "study_budget": 0
+  },
+  "terac": {
+    "study_ref": "",
+    "posted_at": ""
+  },
+  "responses": [],
+  "report": {
+    "themes": [],
+    "quotes": [],
+    "price_range": "",
+    "recommendation": ""
+  }
+}

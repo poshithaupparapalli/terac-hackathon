@@ -1,0 +1,6 @@
+[project]
+name = "terac-hackathon-agent"
+version = "0.1.0"
+description = "Agent planner, Terac execution and results synthesis"
+requires-python = ">=3.11"
+dependencies = ["anthropic>=0.70", "httpx>=0.28", "pydantic>=2.12,<3", "python-dotenv>=1.0"]
